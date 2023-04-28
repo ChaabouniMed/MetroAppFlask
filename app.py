@@ -4,7 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from flask import Flask, jsonify, request
 
 # Charger le modèle depuis le fichier pickle
-with open('metroapp/Mobile/flaskapp/decision_tree_model.pkl', 'rb') as file:
+with open('decision_tree_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 app = Flask(__name__)
@@ -14,7 +14,7 @@ def predict():
     # Récupérer les données d'entrée sous forme de JSON
     input_data = request.get_json()
 
-    df1 = pd.read_excel('metroapp/Mobile/flaskapp/data.xlsx')
+    df1 = pd.read_excel('data.xlsx')
     df1['Time']=pd.to_timedelta(df1['Time'].apply(lambda x: x.strftime('%H:%M:%S'))).dt.total_seconds() / 60
     df1['Direction_Metro'] = df1['Direction_Metro'].replace(-1, 0)
     list_data = [value for key, value in input_data.items()]
