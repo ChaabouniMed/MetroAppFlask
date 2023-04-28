@@ -4,10 +4,13 @@ from sklearn.preprocessing import StandardScaler
 from flask import Flask, jsonify, request
 
 # Charger le modèle depuis le fichier pickle
-with open('decision_tree_model.pkl', 'rb') as file:
-    model = pickle.load(file)
+
+model=pickle.load(open('decision_tree_model.pkl','rb'))
 
 app = Flask(__name__)
+@app.route('/')
+def index():
+    return "Hello world"
 
 @app.route('/predict', methods=['POST'])
 def predict():
